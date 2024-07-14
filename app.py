@@ -1,6 +1,10 @@
 from flask_socketio import SocketIO, emit
 from flask import Flask, render_template, request, jsonify
 import requests
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 app = Flask(__name__)
 app.config['DEBUG'] = False
@@ -27,7 +31,7 @@ def infoPage():
 @app.route('/get_weather', methods=['GET'])
 def get_weather():
     city = request.args.get('city')
-    api_key = 'API_KEY'  
+    api_key = os.getenv('TOKEN') 
     api_url = f'http://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric'
     
     try:
@@ -53,7 +57,7 @@ def get_weather():
 @app.route('/forecast', methods=['GET'])
 def get_weather_forecast():
     city = request.args.get('city')
-    api_key = 'API_KEY'  
+    api_key = os.getenv('TOKEN')
     api_url = f'http://api.openweathermap.org/data/2.5/forecast?q={city}&appid={api_key}&units=metric'
     
     try:
