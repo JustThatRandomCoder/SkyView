@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkyView - Wetterberichte</title>
+    <link rel="shortcut icon" href="{{ url_for('static',filename='images/SkyViewIco.ico') }}">
+    <link href="static/styles/index.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ url_for('static',filename='fontawesome/css/all.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="landingStyle">
+        <header>
+            <div class="leftCo">
+                <img class="headerImg" src="/static/images/Cloud.png" onclick="location.href='home'">
+            </div>
+            <div class="navItems">
+                <nav class="headerItem" onclick="location.href='home'">Home</nav>
+                <nav class="headerItem" onclick="location.href='weather'">Wetter</nav>
+                <nav class="headerItem" onclick="location.href='info'">Info</nav>
+                <div class="mobile-menu">
+                    <button class="mobile-menu-btn" id="mobile-menu-button"><i class="fas fa-bars"></i></button>
+                    <div class="mobile-menu-content">
+                        <nav class="headerItem" onclick="location.href='home'">Home</nav>
+                        <nav class="headerItem" onclick="location.href='weather'">Wetter</nav>
+                        <nav class="headerItem" onclick="location.href='info'">Info</nav>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <section class="landingPage">
+            <div class="landingContent">
+                <div class="landingLeftCo">
+                    <span class="headline">SkyView</span>
+                    <span class="landingText">Schlicht. Einfach. SkyView</span>
+                    <button onclick="location.href='weather'">Get started</button>
+                </div>
+                <div class="landingRightCo">
+                    <img class="landingImg" src="/static/images/skyViewAppSreenShot.png">
+                </div>
+            </div>
+        </section>
+    </div>
+    <section class="infoSection">
+        <div class="infoContainer">
+            <div class="infoHeadline">Wieso SkyView?</div>
+            <div class="infoText">
+                Entdecken Sie SkyView –
+                Ihre Open Source Wetter-Website für präzise und schnelle Vorhersagen. 
+                SkyView bietet Ihnen kostenlos genaue Echtzeitdaten und eine benutzerfreundliche Oberfläche. 
+                Egal, ob Sie das Wetter für Ihren Wohnort oder eine andere Region weltweit prüfen möchten, 
+                SkyView liefert Ihnen verlässliche Informationen, damit Sie Ihren Tag optimal planen können. 
+                Besuchen Sie uns jetzt und erleben Sie die Vorteile von SkyView!
+            </div>
+        </div>
+        <div class="infoContainer">
+            <div class="infoHeadline">Wie funktioniert SkyView</div>
+            <div class="infoText">
+                SkyView verwendet eine API von <span class="link" onclick="window.open('https://openweathermap.org','_blank')">OpenWeatherMap</span>, 
+                um die aktuellen Wetterdaten zu beziehen. Alle Anfragen werden über 
+                ein Python-Skript verwaltet, das direkt mit der API kommuniziert. 
+                Dabei werden keinerlei Nutzerdaten oder persönliche Informationen gespeichert. 
+                Unser Fokus liegt auf der sicheren und effizienten Bereitstellung von Wetterinformationen, 
+                ohne Ihre Privatsphäre zu beeinträchtigen.
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenuContent = document.querySelector('.mobile-menu-content');
+
+            mobileMenuButton.addEventListener('click', function () {
+                mobileMenuContent.classList.toggle('active');
+            });
+
+            document.addEventListener('click', function (event) {
+                const isClickInside = mobileMenuButton.contains(event.target) || mobileMenuContent.contains(event.target);
+                if (!isClickInside) {
+                    mobileMenuContent.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,338 @@
+body {
+    background: rgb(255, 241, 193);
+    background: linear-gradient(140deg, rgba(255, 241, 193, 1) 0%, rgba(234, 193, 203, 1) 36%, rgba(186, 172, 243, 1) 100%);
+    font-family: "Inter", sans-serif;
+    color: rgb(0, 0, 0);
+    margin: 0;
+}
+
+:root {
+    --btn-color: rgba(109, 117, 192, 0.23);
+    --btn-hover-color: rgba(151, 157, 227, 0.23);
+    --container-color: rgba(255, 255, 255, 0.23);
+    --container-border-gray: rgba(184, 184, 184, 1);
+    --gray-hover-color: #333333; 
+}
+
+header {
+    display: flex;
+    flex-direction: row;
+    max-width: 80rem;
+    justify-content: space-between;
+    padding: 2rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.navItems {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 30rem;
+}
+
+nav {
+    transition: color 0.3s ease;
+    cursor: grab;
+}
+
+nav:hover {
+    color: var(--gray-hover-color);
+}
+
+.headerImg {
+    width: 3rem;
+}
+
+.contentContainer {
+    height: 100vh;
+    max-width: 80rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+input {
+    position: relative;
+    width: 24rem;
+    height: 2rem;
+    border: solid 0.5px;
+    border-color: white;
+    border-radius: 8px;
+    margin-left: 2rem;
+    background-color: var(--container-color);
+    padding: 10px 10px 10px 1.5rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    box-shadow: 0px 0px 10px -5px;
+}
+
+
+input::placeholder {
+    color: #000000;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+}
+
+input:focus {
+    outline: none;
+}
+
+button {
+    width: 3.4rem;
+    height: 3.3rem;
+    border: solid 0.5px white;
+    border-radius: 8px;
+    background-color: var(--btn-color);
+    position: absolute;
+    margin-left: -3.4rem;
+    font-size: 15px;
+    color: black;
+    transition: background-color 0.3s ease;
+    cursor: grab;
+}
+
+button:hover {
+    background-color: var(--btn-hover-color);
+}
+
+.searchBarCo {
+    margin-bottom: 2rem;
+}
+
+.cityFromSearch {
+    margin-left: 2rem;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.weatherDataContainer {
+    width: 10rem;
+    height: 10rem;
+    border: solid 0.5px;
+    border-color: white;
+    border-radius: 8px;
+    margin-left: 2rem;
+    background-color: var(--container-color);
+    font-family: 'Inter', sans-serif;
+    box-shadow: 0px 0px 10px -5px;
+    margin-top: 2rem;
+    text-align: center;
+    align-items: center;
+    padding: 1rem;
+}
+
+.weatherInforamtions {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.headline {
+    font-weight: 600;
+}
+
+.temperatureData {
+    margin-top: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.humidityData {
+    font-size: 2.5rem;
+    margin-top: 2rem;
+}
+
+.windspeedData {
+    font-size: 2rem;
+}
+
+.descriptionData {
+    font-size: 1.6rem;
+}
+
+.temperature {
+    margin-top: 1rem;
+}
+
+.temperatureImg {
+    width: 4rem;
+}  
+
+.timeCo {
+    width: 10rem;
+    height: 1.5rem;
+    border: solid 0.5px;
+    border-color: white;
+    border-radius: 8px;
+    margin-left: 2rem;
+    background-color: var(--container-color);
+    font-family: 'Inter', sans-serif;
+    box-shadow: 0px 0px 10px -5px;
+    margin-top: 2rem;
+    text-align: center;
+    align-items: center;
+    padding: 1rem;
+    display: flex;
+    flex-direction: row;
+}
+
+.forecastCo {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    max-width: 80rem;
+}
+
+.time {
+    margin-left: 2rem;
+}
+
+.timeImg img[src*='Cloud_rainy'] {
+    width: 2rem;
+}
+
+.temperatureImg img[src*='Cloud_rainy'] {
+    margin-top: -1rem;
+}
+
+.tdf {
+    width: 15rem;
+    height: 1.5rem;
+    border: solid 0.5px;
+    border-color: white;
+    border-radius: 8px;
+    margin-left: 2rem;
+    background-color: var(--container-color);
+    font-family: 'Inter', sans-serif;
+    box-shadow: 0px 0px 10px -5px;
+    margin-top: 2rem;
+    text-align: center;
+    align-items: center;
+    padding: 1rem;
+    display: flex;
+    flex-direction: row;
+}
+
+.tdfDay {
+    right: 0;
+    margin-left: 3rem;
+}
+
+.mobile-menu-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    width: 100%;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.mobile-menu-content.active {
+    display: block;
+}
+
+
+@media screen and (max-width: 768px) {
+    .navItems {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        width: auto;
+        position: relative;
+    }
+
+    .mobile-menu {
+        display: block;
+        position: relative;
+    }
+
+    .mobile-menu-content {
+        display: none;
+        position: absolute;
+        background-color: white;
+        width: 100%;
+        top: 100%;
+        left: 0;
+        z-index: 1000;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    }
+
+    .mobile-menu-content.active {
+        display: block;
+    }
+
+    #mobile-menu-button {
+        display: block;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+
+    .headerItem {
+        display: none;
+    }
+
+    input {
+        width: 18rem;
+    }
+
+    .weatherDataContainer {
+        width: 7rem;
+        height: 7rem;
+    }
+
+    .headline {
+        font-size: 14px;
+    }
+
+    .humidityData {
+        font-size: 28px;
+    }
+
+    .windspeedData {
+        font-size: 20px;
+    }
+
+    .descriptionData {
+        font-size: 16px;
+    }
+
+    .temperatureData {
+        margin-top: 1rem;
+    }
+
+    .temperatureImg img[src*='Cloud_rainy'] {
+        margin-top: 0rem !important;
+        width: 3rem !important;
+    }
+}
+
+@media screen and (min-width: 769px) {
+    .mobile-menu {
+        display: none;
+    }
+
+    .navItems {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 30rem;
+    }
+
+    .headerItem {
+        transition: color 0.3s ease;
+        cursor: grab;
+    }
+
+    .headerItem:hover {
+        color: var(--gray-hover-color);
+    }
+
+    .headerImg {
+        width: 3rem;
+    }
+}

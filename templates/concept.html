@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wettervorhersage | SkyView</title>
+    <link rel="shortcut icon" href="{{ url_for('static',filename='images/SkyViewIco.ico') }}">
+    <link href="static/styles/concept.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ url_for('static',filename='fontawesome/css/all.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap" rel="stylesheet">
+    <style>
+        .temperatureImg img {
+            width: 4rem;
+        }
+
+        .timeImg img {
+            width: 3rem;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="leftCo">
+            <img class="headerImg" src="/static/images/Cloud.png" onclick="location.href='home'">
+        </div>
+        <div class="navItems">
+            <nav class="headerItem" onclick="location.href='home'">Home</nav>
+            <nav class="headerItem" onclick="location.href='weather'">Wetter</nav>
+            <nav class="headerItem" onclick="location.href='info'">Info</nav>
+            <div class="mobile-menu">
+                <button id="mobile-menu-button"><i class="fas fa-bars"></i></button>
+                <div class="mobile-menu-content">
+                    <nav class="headerItem" onclick="location.href='home'">Home</nav>
+                    <nav class="headerItem" onclick="location.href='weather'">Wetter</nav>
+                    <nav class="headerItem" onclick="location.href='info'">Info</nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="contentContainer">
+        <section class="weatherCo">
+            <div class="searchBarCo">
+                <input type="text" id="city" placeholder="Stadt" required>
+                <button type="submit" id="search-button"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+            <span class="cityFromSearch" id="city-name">Berlin, DE</span>
+            <div class="weatherInforamtions">
+                <div class="weatherDataContainer">
+                    <span class="headline">Temperatur</span>
+                    <div class="temperatureData">
+                        <span class="temperatureImg" id="weather-icon"></span>
+                        <span class="temperature" id="temperature"><br>20.6 °C</span>
+                    </div>
+                </div>
+                <div class="weatherDataContainer">
+                    <span class="headline">Luftfeuchtigkeit<br> <br> <br></span>
+                    <span class="humidityData" id="humidity">70%</span>
+                </div>
+                <div class="weatherDataContainer">
+                    <span class="headline">Windgeschw...<br> <br> <br></span>
+                    <span class="windspeedData" id="wind-speed">2.1 m/s</span>
+                </div>
+                <div class="weatherDataContainer">
+                    <span class="headline">Beschreibung <br> <br> <br></span>
+                    <span class="descriptionData" id="description">Clear Sky</span>
+                </div>
+            </div>
+        </section>
+        <section class="forecastCo hourlyForecast" id="forecast-container">
+        </section>
+    </section>
+
+    <script>
+        function getWeather(city) {
+            fetch(`/get_weather?city=${city}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Fehler beim Abrufen der aktuellen Wetterdaten');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    document.getElementById('city-name').textContent = `${data.city}, ${data.country}`;
+                    document.getElementById('temperature').textContent = `${data.temperature} °C`;
+                    document.getElementById('humidity').textContent = `${data.humidity} %`;
+                    document.getElementById('wind-speed').textContent = `${data.wind_speed} m/s`;
+                    document.getElementById('description').textContent = data.description;
+
+                    const weatherIcon = document.getElementById('weather-icon');
+                    weatherIcon.innerHTML = '';
+
+                    let iconSrc;
+                    if (data.description.toLowerCase().includes('clear')) {
+                        iconSrc = '/static/images/Cloud.png';
+                    } else if (data.description.toLowerCase().includes('clouds')) {
+                        iconSrc = '/static/images/Cloud_gray.png';
+                    } else if (data.description.toLowerCase().includes('rain')) {
+                        iconSrc = '/static/images/Cloud_rainy.png';
+                    } else if (data.description.toLowerCase().includes('storm')) {
+                        iconSrc = '/static/images/Cloud_storm.png';
+                    } else {
+                        iconSrc = '/static/images/Cloud.png';
+                    }
+
+                    const img = document.createElement('img');
+                    img.src = iconSrc;
+                    weatherIcon.appendChild(img);
+
+                    fetch(`/forecast?city=${city}`)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Fehler beim Abrufen der Wettervorhersage');
+                            }
+                            return response.json();
+                        })
+                        .then(forecastData => {
+                            const forecastContainer = document.getElementById('forecast-container');
+                            forecastContainer.innerHTML = '';
+
+                            const now = new Date();
+                            const currentHour = now.getHours();
+
+                            const forecastHours = [
+                                `${(currentHour + 1) % 24}:00 Uhr`,
+                                `${(currentHour + 2) % 24}:00 Uhr`,
+                                `${(currentHour + 3) % 24}:00 Uhr`
+                            ];
+
+                            forecastHours.forEach((hour, index) => {
+                                const timeCo = document.createElement('div');
+                                timeCo.className = 'timeCo';
+
+                                const timeImg = document.createElement('div');
+                                timeImg.className = 'timeImg';
+
+                                const img = document.createElement('img');
+                                const forecastDescription = forecastData[index].description.toLowerCase();
+                                if (forecastDescription.includes('clear')) {
+                                    img.src = '/static/images/Cloud.png';
+                                } else if (forecastDescription.includes('clouds')) {
+                                    img.src = '/static/images/Cloud_gray.png';
+                                } else if (forecastDescription.includes('rain')) {
+                                    img.src = '/static/images/Cloud_rainy.png';
+                                } else if (forecastDescription.includes('storm')) {
+                                    img.src = '/static/images/Cloud_storm.png';
+                                } else {
+                                    img.src = '/static/images/Cloud.png';
+                                }
+                                timeImg.appendChild(img);
+
+                                const time = document.createElement('div');
+                                time.className = 'time';
+                                time.textContent = `${hour}`;
+
+                                timeCo.appendChild(timeImg);
+                                timeCo.appendChild(time);
+                                forecastContainer.appendChild(timeCo);
+                            });
+                        })
+                        .catch(error => {
+                            console.error('Fehler beim Abrufen der Wettervorhersage:', error);
+                        });
+
+                })
+                .catch(error => {
+                    console.error('Fehler beim Abrufen der aktuellen Wetterdaten:', error);
+                });
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            getWeather('Berlin');
+        });
+
+        document.getElementById('search-button').addEventListener('click', function () {
+            const city = document.getElementById('city').value;
+            if (city) {
+                getWeather(city);
+            }
+        });
+
+        document.getElementById('city').addEventListener('keydown', function (event) {
+            if (event.key === 'Enter') {
+                const city = document.getElementById('city').value;
+                if (city) {
+                    getWeather(city);
+                }
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenuContent = document.querySelector('.mobile-menu-content');
+
+            mobileMenuButton.addEventListener('click', function () {
+                mobileMenuContent.classList.toggle('active');
+            });
+
+            document.addEventListener('click', function (event) {
+                const isClickInside = mobileMenuButton.contains(event.target) || mobileMenuContent.contains(event.target);
+                if (!isClickInside) {
+                    mobileMenuContent.classList.remove('active');
+                }
+            });
+        });
+
+    </script>
+</body>
+
+</html>

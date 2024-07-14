@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkyView - Info</title>
+    <link rel="shortcut icon" href="{{ url_for('static',filename='images/SkyViewIco.ico') }}">
+    <link href="static/styles/info.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ url_for('static',filename='fontawesome/css/all.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <div class="leftCo">
+            <img class="headerImg" src="/static/images/Cloud.png" onclick="location.href='home'">
+        </div>
+        <div class="navItems">
+            <nav class="headerItem" onclick="location.href='home'">Home</nav>
+            <nav class="headerItem" onclick="location.href='weather'">Wetter</nav>
+            <nav class="headerItem" onclick="location.href='info'">Info</nav>
+            <div class="mobile-menu">
+                <button id="mobile-menu-button"><i class="fas fa-bars"></i></button>
+                <div class="mobile-menu-content">
+                    <nav class="headerItem" onclick="location.href='home'">Home</nav>
+                    <nav class="headerItem" onclick="location.href='weather'">Wetter</nav>
+                    <nav class="headerItem" onclick="location.href='info'">Info</nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section class="contentContainer">
+        <div class="contentAlignmentContainer">
+            <div class="infoContainer">
+                <div class="infoHeadline">Info über SkyView</div>
+                <div class="infoText">
+                    SkyView ist das erste Projekt des "Minihakathons" von YouTuber und Programmierer
+                    Kevin Chromik. Dieses nicht-kommerzielle Projekt wurde von
+                    <span class="link" onclick="window.open('https://juliusgrimm.dev','_blank')">Julius Grimm</span>
+                    entwickelt und dient ausschließlich zu Bildungszwecken und zur Demonstration von
+                    Programmierfähigkeiten.
+                    Es ist nicht für kommerzielle Nutzung oder andere Zwecke bestimmt. SkyView bietet Nutzern eine
+                    einfache Möglichkeit,
+                    aktuelle Wetterdaten abzurufen, ohne dass persönliche Daten erfasst oder gespeichert werden.
+                    Die Transparenz und Sicherheit der Anwendung stehen dabei im Mittelpunkt, um die Privatsphäre der
+                    Nutzer zu schützen.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenuContent = document.querySelector('.mobile-menu-content');
+
+            mobileMenuButton.addEventListener('click', function () {
+                mobileMenuContent.classList.toggle('active');
+            });
+
+            document.addEventListener('click', function (event) {
+                const isClickInside = mobileMenuButton.contains(event.target) || mobileMenuContent.contains(event.target);
+                if (!isClickInside) {
+                    mobileMenuContent.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
