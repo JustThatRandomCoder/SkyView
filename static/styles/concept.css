@@ -234,6 +234,12 @@ button:hover {
     display: block;
 }
 
+.forecastHeadline {
+    margin-left: 2rem;
+    margin-top: 2rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
 
 @media screen and (max-width: 768px) {
     .navItems {
