@@ -71,7 +71,7 @@ def get_weather_forecast():
     data = response.json()
     forecast_data = []
 
-    for forecast in data['list'][:3]:  
+    for forecast in data['list'][:12]:  
         forecast_data.append({
             "date": forecast['dt_txt'],
             "temperature": round(forecast['main']['temp'], 1),

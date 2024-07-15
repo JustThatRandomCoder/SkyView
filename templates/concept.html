@@ -113,6 +113,7 @@
                     img.src = iconSrc;
                     weatherIcon.appendChild(img);
 
+                    // Fetch forecast data
                     fetch(`/forecast?city=${city}`)
                         .then(response => {
                             if (!response.ok) {
@@ -124,16 +125,7 @@
                             const forecastContainer = document.getElementById('forecast-container');
                             forecastContainer.innerHTML = '';
 
-                            const now = new Date();
-                            const currentHour = now.getHours();
-
-                            const forecastHours = [
-                                `${(currentHour + 1) % 24}:00 Uhr`,
-                                `${(currentHour + 2) % 24}:00 Uhr`,
-                                `${(currentHour + 3) % 24}:00 Uhr`
-                            ];
-
-                            forecastHours.forEach((hour, index) => {
+                            forecastData.forEach(forecast => {
                                 const timeCo = document.createElement('div');
                                 timeCo.className = 'timeCo';
 
@@ -141,7 +133,7 @@
                                 timeImg.className = 'timeImg';
 
                                 const img = document.createElement('img');
-                                const forecastDescription = forecastData[index].description.toLowerCase();
+                                const forecastDescription = forecast.description.toLowerCase();
                                 if (forecastDescription.includes('clear')) {
                                     img.src = '/static/images/Cloud.png';
                                 } else if (forecastDescription.includes('clouds')) {
@@ -157,10 +149,15 @@
 
                                 const time = document.createElement('div');
                                 time.className = 'time';
-                                time.textContent = `${hour}`;
+                                time.textContent = new Date(forecast.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+                                const temperature = document.createElement('div');
+                                temperature.className = 'forecastTemperature';
+                                temperature.textContent = `${forecast.temperature} °C`;
 
                                 timeCo.appendChild(timeImg);
                                 timeCo.appendChild(time);
+                                timeCo.appendChild(temperature);
                                 forecastContainer.appendChild(timeCo);
                             });
                         })

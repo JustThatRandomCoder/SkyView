@@ -45,7 +45,6 @@ nav:hover {
 }
 
 .contentContainer {
-    height: 100vh;
     max-width: 80rem;
     margin-left: auto;
     margin-right: auto;
@@ -160,7 +159,7 @@ button:hover {
 }  
 
 .timeCo {
-    width: 10rem;
+    width: 14rem;
     height: 1.5rem;
     border: solid 0.5px;
     border-color: white;
@@ -182,6 +181,12 @@ button:hover {
     flex-direction: row;
     flex-wrap: wrap;
     max-width: 80rem;
+    margin-bottom: 3rem;
+}
+
+.forecastTemperature {
+    margin-top: 0rem !important;
+    margin-left: 2rem;
 }
 
 .time {
