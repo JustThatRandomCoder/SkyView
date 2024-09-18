@@ -9,3 +9,5 @@ SkyView uses the OpenWeatherMap API to retrieve real-time weather data. A Python
 # About SkyView 
 
 SkyView is the first project from the "Minihackathon" by YouTuber and programmer Kevin Chromik. This non-commercial project was developed by Julius Grimm and serves purely educational purposes, showcasing programming skills. It is not intended for commercial use or any other purposes. SkyView provides users with an easy way to access current weather data without collecting or storing personal information. The application's transparency and security are prioritized to protect user privacy.
+
+![SkyView Showcase](./iphoneShowcase.png)
